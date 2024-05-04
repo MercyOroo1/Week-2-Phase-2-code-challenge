@@ -1,0 +1,14 @@
+.card-container {
+    display: flex;
+    flex-direction:row;
+
+}
+
+.card-container .card {
+    width: 200px;
+    height: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
