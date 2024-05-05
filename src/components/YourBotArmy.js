@@ -13,11 +13,23 @@ function YourBotArmy({bots = [], onRemoveItem}) {
     onRemoveItem(id)
   }
 
+  function handleDeleteBot (id) {
+   fetch (`http://localhost:3000/bots/${id}`, {
+    method : "DELETE",
+    headers : {
+      "Content-Type": "application/json",
+    },
+   })
+   .then (res => res.json())
+   .then (()=> onRemoveItem (id))
+  }
+
   return (
     <div style={{ backgroundColor: "green" }} className='main'>
       <div className='container' style={{ width: '100%', height: '500px', backgroundColor: 'green' }}>
         {bots.map ((bot)=> (
            <div key = {bot.id} >
+             <button className = "deletebtn" onClick = {()=> handleDeleteBot(bot.id)}>x</button>
             <div className='card' style = {{width: 200}} onClick = {()=> handleRemoveBot(bot.id)}>
             <img src={bot.avatar_url} className="card-img-top" alt="..." style = {{width: 200}}/>
             <div className="card-body">

@@ -30,6 +30,7 @@ function BotCollection2({item, onAddItem}) {
                     </p>
                 </div>
             </div>
+            <button> View Details </button>
         </div>
         </div>
         </div>

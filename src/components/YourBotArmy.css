@@ -20,3 +20,12 @@
     padding-top: 0px;
     margin-top: 0px;
 }
+
+.deletebtn {
+background-color: red;
+float: right;
+color: white;
+border: none;
+border-radius: 12px;
+
+}
