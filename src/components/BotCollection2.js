@@ -3,19 +3,22 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import "./BotCollection2.css"
 
 
-function BotCollection2({item}) {
-    function handleClick (id) {
-        fetch (`http://localhost:3000/bots/${id}`)
-        .then (res => res.json())
-        .then (data => console.log(data))
+
+function BotCollection2({item, onAddItem}) {
+
+     
+
+    function handleClick () {
+       onAddItem (item)
     }
 
     // assign the items an icon based on their classes
     return (
-        <div className= "card-container">
-           
         <div>
-            <div className="card" onClick = {()=> handleClick (item.id)} >
+        <div className= "card-container">
+                    <div>
+           
+            <div className="card" onClick = {handleClick} >
                 <img src={item.avatar_url} className="card-img-top" alt="..." />
                 <div className="card-body">
                   <h1> {item.name} </h1>
@@ -23,10 +26,11 @@ function BotCollection2({item}) {
                         {item.catchphrase}
                     </p>
                     <p className="card-text">
-                    <i class="fa-solid fa-heart"></i> {item.health} <i class="fa-solid fa-bolt"></i> {item.damage} <i class="fa-solid fa-shield-halved"></i> {item.armor}
+                    <i className="fa-solid fa-heart"></i> {item.health} <i className="fa-solid fa-bolt"></i> {item.damage} <i className="fa-solid fa-shield-halved"></i> {item.armor}
                     </p>
                 </div>
             </div>
+        </div>
         </div>
         </div>
     )

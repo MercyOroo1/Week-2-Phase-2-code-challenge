@@ -1,7 +1,7 @@
 import React, {useState , useEffect} from 'react'
 // import "./BotCollection.css"
 import BotCollection2 from './BotCollection2'
-import YourBotArmy from './YourBotArmy'
+import YourBotArmy from "./YourBotArmy"
 
 function BotCollection() {
     const [data, setData] = useState ([])
@@ -12,15 +12,22 @@ useEffect (()=> {
     .then (data => setData (data))
 },[])
 
-const [botDetail , setBotDetail] = useState ([])
+const [clickedItems, setClickedItems] = useState([]);
 
-function handleAddItem (newBot) {
-  setBotDetail([...botDetail, newBot])
+function handleClick (item) {
+    if (!clickedItems.find(bot => bot.id === item.id)) {
+        setClickedItems([...clickedItems, item])
+    }
+
 }
+
+
+console.log (clickedItems)
   return (
     <div>
+       <YourBotArmy bots = {clickedItems} />
       {data.map ((item)=> (
-        <BotCollection2 key = {item.id} item = {item}/>
+        <BotCollection2 key = {item.id} item = {item} onAddItem={handleClick}/>
        
       ))}
      
