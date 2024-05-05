@@ -10,6 +10,7 @@ function BotCollection() {
   const [clickedItems, setClickedItems] = useState([])
   const [sortBy, setSortBy] = useState('damage')
   const [selectedClass, setSelectedClass] = useState('All')
+  const [enlistedBots, setEnlistedBots] = useState ([])
 
   useEffect(() => {
     fetch("http://localhost:3000/bots")
@@ -17,15 +18,26 @@ function BotCollection() {
       .then(data => setData(data))
   }, [])
 
+  function handleEnlistedBots (item) {
+  //  if (!enlistedBots.find (bot => bot.id === item.id)) {
+    setEnlistedBots ([...enlistedBots, item])
+  //  }
+ }
   const handleClick = (item) => {
     if (!clickedItems.find(bot => bot.id === item.id)) {
       setClickedItems([...clickedItems, item]);
     }
   }
 
+  const handleDeleteItem = (botID) => {
+    setData(prevItems => prevItems.filter(bot => bot.id !== botID))
+  }
+
   const handleRemoveItem = (botID) => {
     setClickedItems(prevItems => prevItems.filter(bot => bot.id !== botID))
   }
+
+ 
 
   const handleSort = (criteria) => {
     setSortBy(criteria)
@@ -39,17 +51,18 @@ function BotCollection() {
   const filteredData = data.filter((bot) => selectedClass === 'All' || bot.bot_class === selectedClass);
   const sortedData = [...filteredData].sort((a, b) => a[sortBy] - b[sortBy])
 
+ 
   return (
     <div>
+      <YourBotArmy bots={clickedItems} onRemoveItem={handleRemoveItem}  onDeleteItem = {handleDeleteItem} />
       <SortBar onSort={handleSort} />
       <Filter onClassChange={handleClassChange} />
-      <YourBotArmy bots={clickedItems} onRemoveItem={handleRemoveItem} />
       {sortedData.map(item => (
         <BotCollection2 key={item.id} item={item} onAddItem={handleClick} />
       ))}
-      <BotSpecs items={data} />
+      <BotSpecs onenlistedBots = {handleEnlistedBots}/>
     </div>
-  )
+  );
 }
 
 export default BotCollection;

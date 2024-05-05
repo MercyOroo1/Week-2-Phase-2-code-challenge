@@ -9,6 +9,7 @@ function BotSpecs() {
     const [bot, setBot] = useState({});
     const params = useParams();
     const botId = params.id;
+    const [enlistedBots,setEnlistedBots] = useState ([])
 
     useEffect(() =>{
         fetch(`http://localhost:3000/bots/${botId}`)
@@ -19,11 +20,17 @@ function BotSpecs() {
 
       if(!bot.name){
         return <h1>Loading...</h1>;
-      };
-
+      }
+      function handleEnlist (id) {
+        console.log(id)
+        fetch (`http://localhost:3000/bots/${id}`)
+        .then (res => res.json())
+        .then (data => setEnlistedBots(data))
+      }
+console.log (enlistedBots.id)
   return (
     <div>
-        <YourBotArmy />
+        <YourBotArmy enlistedBots= {enlistedBots}/>
         <img src ={bot.avatar_url} alt = "bot avatar"/>
         <p> {bot.name}</p>
         <p>{bot.catchphrase}</p>
@@ -31,7 +38,7 @@ function BotSpecs() {
          <p className="card-text">
                     <i className="fa-solid fa-heart"></i> {bot.health} <i className="fa-solid fa-bolt"></i> {bot.damage} <i className="fa-solid fa-shield-halved"></i> {bot.armor}</p>
         <Link to="/" className="btn btn-primary">Go Back</Link>
-        <button className='enlist-btn'> Enlist </button>
+        <button className='enlist-btn' onClick = {()=> handleEnlist(bot.id)}> Enlist </button>
     </div>
   )
 }

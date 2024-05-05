@@ -1,7 +1,7 @@
 import React from 'react';
 import "./YourBotArmy.css";
 
-function YourBotArmy({bots = [], onRemoveItem}) {
+function YourBotArmy({bots = [], onRemoveItem, onDeleteItem, enlistedBots}) {
   
   
 
@@ -21,7 +21,7 @@ function YourBotArmy({bots = [], onRemoveItem}) {
     },
    })
    .then (res => res.json())
-   .then (()=> onRemoveItem (id))
+   .then (()=> onDeleteItem(id) ,onRemoveItem(id))
   }
 
   return (
@@ -46,6 +46,8 @@ function YourBotArmy({bots = [], onRemoveItem}) {
             </div>
         ))}
         
+      </div>
+      <div>
       </div>
     </div>
   );
