@@ -1,7 +1,7 @@
 import React from 'react';
 import "./YourBotArmy.css";
 
-function YourBotArmy({bots = []}) {
+function YourBotArmy({bots = [], onRemoveItem}) {
   
   
 
@@ -9,15 +9,16 @@ function YourBotArmy({bots = []}) {
     return <div>Loading...</div>;
   }
 
-  console.log(bots)
+  function handleRemoveBot (id) {
+    onRemoveItem(id)
+  }
 
   return (
     <div style={{ backgroundColor: "green" }} className='main'>
       <div className='container' style={{ width: '100%', height: '500px', backgroundColor: 'green' }}>
-        {/* Map through the bots array and create list items for each bot */}
         {bots.map ((bot)=> (
            <div key = {bot.id} >
-            <div className='card' style = {{width: 200}}>
+            <div className='card' style = {{width: 200}} onClick = {()=> handleRemoveBot(bot.id)}>
             <img src={bot.avatar_url} className="card-img-top" alt="..." style = {{width: 200}}/>
             <div className="card-body">
             <h1> {bot.name} </h1>

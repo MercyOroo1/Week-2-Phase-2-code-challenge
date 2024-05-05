@@ -20,12 +20,16 @@ function handleClick (item) {
     }
 
 }
+function handleRemoveItem (botID) {
+  const updatedItems = clickedItems.filter ((bot)=> bot.id !== botID) 
+  setClickedItems (updatedItems)
+}
 
 
 console.log (clickedItems)
   return (
     <div>
-       <YourBotArmy bots = {clickedItems} />
+       <YourBotArmy bots = {clickedItems} onRemoveItem = {handleRemoveItem}/>
       {data.map ((item)=> (
         <BotCollection2 key = {item.id} item = {item} onAddItem={handleClick}/>
        
