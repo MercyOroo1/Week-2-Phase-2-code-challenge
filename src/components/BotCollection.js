@@ -1,46 +1,55 @@
-import React, {useState , useEffect} from 'react'
-// import "./BotCollection.css"
-import BotCollection2 from './BotCollection2'
-import YourBotArmy from "./YourBotArmy"
-import BotSpecs from './BotSpecs'
+import React, { useState, useEffect } from 'react';
+import BotCollection2 from './BotCollection2';
+import YourBotArmy from './YourBotArmy';
+import BotSpecs from './BotSpecs';
+import SortBar from './SortBar';
+import Filter from './Filter';
 
 function BotCollection() {
-    const [data, setData] = useState ([])
+  const [data, setData] = useState([])
+  const [clickedItems, setClickedItems] = useState([])
+  const [sortBy, setSortBy] = useState('damage')
+  const [selectedClass, setSelectedClass] = useState('All')
 
-useEffect (()=> {
-    fetch ("http://localhost:3000/bots")
-    .then (res => res.json())
-    .then (data => setData (data))
-},[])
+  useEffect(() => {
+    fetch("http://localhost:3000/bots")
+      .then(res => res.json())
+      .then(data => setData(data))
+  }, [])
 
-const [clickedItems, setClickedItems] = useState([]);
-
-function handleClick (item) {
+  const handleClick = (item) => {
     if (!clickedItems.find(bot => bot.id === item.id)) {
-        setClickedItems([...clickedItems, item])
+      setClickedItems([...clickedItems, item]);
     }
+  }
 
-}
-function handleRemoveItem (botID) {
-  const updatedItems = clickedItems.filter ((bot)=> bot.id !== botID) 
-  setClickedItems (updatedItems)
-}
+  const handleRemoveItem = (botID) => {
+    setClickedItems(prevItems => prevItems.filter(bot => bot.id !== botID))
+  }
 
+  const handleSort = (criteria) => {
+    setSortBy(criteria)
+  }
 
-console.log (clickedItems)
+  const handleClassChange = (category) => {
+    setSelectedClass(category)
+  }
+
+  // Filtering and sorting bots
+  const filteredData = data.filter((bot) => selectedClass === 'All' || bot.bot_class === selectedClass);
+  const sortedData = [...filteredData].sort((a, b) => a[sortBy] - b[sortBy])
+
   return (
     <div>
-       <YourBotArmy bots = {clickedItems} onRemoveItem = {handleRemoveItem}/>
-      {data.map ((item)=> (
-        <BotCollection2 key = {item.id} item = {item} onAddItem={handleClick}/>
-        
+      <SortBar onSort={handleSort} />
+      <Filter onClassChange={handleClassChange} />
+      <YourBotArmy bots={clickedItems} onRemoveItem={handleRemoveItem} />
+      {sortedData.map(item => (
+        <BotCollection2 key={item.id} item={item} onAddItem={handleClick} />
       ))}
-      <BotSpecs items = {data}/>
-     
-
-    
+      <BotSpecs items={data} />
     </div>
   )
 }
 
-export default BotCollection
+export default BotCollection;
