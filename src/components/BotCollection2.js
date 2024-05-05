@@ -1,6 +1,7 @@
 import React from 'react'
 import '@fortawesome/fontawesome-free/css/all.css'
 import "./BotCollection2.css"
+import { Link } from 'react-router-dom'
 
 
 
@@ -30,7 +31,8 @@ function BotCollection2({item, onAddItem}) {
                     </p>
                 </div>
             </div>
-            <button> View Details </button>
+            <Link to={`/botspecs/${item.id}`} className="btn btn-primary">View Detail</Link>
+
         </div>
         </div>
         </div>

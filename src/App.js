@@ -1,14 +1,19 @@
-
 import './App.css';
 import BotCollection from './components/BotCollection';
-import YourBotArmy from './components/YourBotArmy';
+import BotSpecs from './components/BotSpecs';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <YourBotArmy />
-      <BotCollection />
-           </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<BotCollection />} />
+          <Route path="/botspecs/:id" element={<BotSpecs />} />
+        </Routes>
+      </Router>
+      
+    </div>
   );
 }
 

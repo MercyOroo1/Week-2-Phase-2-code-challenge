@@ -2,6 +2,7 @@ import React, {useState , useEffect} from 'react'
 // import "./BotCollection.css"
 import BotCollection2 from './BotCollection2'
 import YourBotArmy from "./YourBotArmy"
+import BotSpecs from './BotSpecs'
 
 function BotCollection() {
     const [data, setData] = useState ([])
@@ -32,9 +33,12 @@ console.log (clickedItems)
        <YourBotArmy bots = {clickedItems} onRemoveItem = {handleRemoveItem}/>
       {data.map ((item)=> (
         <BotCollection2 key = {item.id} item = {item} onAddItem={handleClick}/>
-       
+        
       ))}
+      <BotSpecs items = {data}/>
      
+
+    
     </div>
   )
 }
