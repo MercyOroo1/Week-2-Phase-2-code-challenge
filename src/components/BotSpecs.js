@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Link } from 'react-router-dom';
-import YourBotArmy from './YourBotArmy';
+import YourBotArmy2 from './YourBotArmy2';
 
 
 function BotSpecs() {
@@ -30,7 +30,7 @@ function BotSpecs() {
 console.log (enlistedBots.id)
   return (
     <div>
-        <YourBotArmy enlistedBots= {enlistedBots}/>
+        <YourBotArmy2 enlistedBots= {enlistedBots}/>
         <img src ={bot.avatar_url} alt = "bot avatar"/>
         <p> {bot.name}</p>
         <p>{bot.catchphrase}</p>

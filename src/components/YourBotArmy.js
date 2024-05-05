@@ -1,7 +1,7 @@
 import React from 'react';
 import "./YourBotArmy.css";
 
-function YourBotArmy({bots = [], onRemoveItem, onDeleteItem, enlistedBots}) {
+function YourBotArmy({bots = [], onRemoveItem, onDeleteItem}) {
   
   
 
